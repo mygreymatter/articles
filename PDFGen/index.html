@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>PDF Generation</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css">
+	<script defer src="https://use.fontawesome.com/releases/v5.1.0/js/all.js"></script>
+	<style>
+		pre{
+			padding: 0;
+		}
+
+		 .mt-5{
+			 margin-top: 15px;
+		 }
+
+		header>.columns {
+			margin-bottom: 5px !important;
+		}
+
+		header .column {
+			padding: 5px 10px;
+		}
+
+		.mcq-answers,
+		.descriptive-answers {
+			padding: 5px 10px 10px 5px;
+			margin-bottom: 10px;
+		}
+
+		.mcq {
+			margin-bottom: 5px;
+		}
+
+		.options-table {
+			width: 100%;
+		}
+
+		.options-table td {
+			width: 50%;
+			padding-left: 10px;
+		}
+	</style>
+</head>
+
+<body>
+	<section class="section">
+		<div class="container">
+			<h1 class="title has-text-centered">
+				PDF Generation
+			</h1>
+			<hr>
+			<p class="subtitle">
+				Here, I tried to generate a pdf from a html page containing <strong>non-Latin</strong> languages like <strong>Telugu</strong>,
+				<strong>Hindi </strong> etc. I used <a href="https://www.w3schools.com/jsref/met_win_open.asp">open</a>
+				method of <strong>window</strong> object.
+			</p>
+
+			<div class="has-text-centered">
+				<button class="button is-primary" onclick="print()">Click here to generate PDF in non-latin languages</button>
+			</div>
+
+			<div>
+				<p class="subtitle">HTML Code for the page</p>
+				<figure>
+					<pre>
+						<code>
+	&lt;section id=&quot;page&quot;&gt;
+	&lt;header&gt;
+		&lt;h1 class=&quot;is-size-5 has-text-centered has-text-weight-bold&quot; id=&quot;school-name&quot;&gt;&lt;/h1&gt;
+		&lt;h1 class=&quot;is-size-6 has-text-centered&quot; id=&quot;page-title&quot;&gt;&lt;/h1&gt;
+		&lt;div class=&quot;columns is-marginless is-border-bottom&quot;&gt;
+			&lt;div class=&quot;column num&quot;&gt;
+				&lt;span class=&quot;has-text-weight-semibold&quot;&gt;Total Marks:&lt;/span&gt;
+				&lt;span id=&quot;total-marks&quot;&gt;&lt;/span&gt;
+			&lt;/div&gt;
+			&lt;div class=&quot;column has-text-centered&quot;&gt;
+				&lt;span class=&quot;has-text-weight-semibold&quot;&gt;Duration:&lt;/span&gt;
+				&lt;span v-show=&quot;exam.hours &gt; 0&quot; id=&quot;exam-hours&quot;&gt;1 hrs&lt;/span&gt;
+				&lt;span v-show=&quot;exam.minutes &gt; 0&quot; id=&quot;exam-minutes&quot;&gt;30 mins&lt;/span&gt;
+			&lt;/div&gt;
+			&lt;div class=&quot;column num has-text-right&quot;&gt;
+				&lt;span class=&quot;has-text-weight-semibold&quot;&gt;Date:&lt;/span&gt;
+				&lt;span id=&quot;exam-timestamp&quot;&gt;&lt;/span&gt;
+			&lt;/div&gt;
+		&lt;/div&gt;
+	&lt;/header&gt;
+	&lt;div class=&quot;descriptive-answers is-border-bottom&quot;&gt;
+		&lt;h1 class=&quot;has-text-weight-normal has-text-centered&quot;&gt;Descriptive Questions&lt;/h1&gt;
+		&lt;div id=&quot;descriptive-questions&quot;&gt;&lt;/div&gt;
+	&lt;/div&gt;
+	&lt;/section&gt;
+						</code>
+					</pre>
+				</figure>
+				<p class="subtitle mt-5">Javascript code for the page</p>
+				<figure>
+						<pre>
+							<code>
+	&lt;script&gt;
+	const page = document.getElementById(&quot;page&quot;).innerHTML;
+	const p = window.open('', '', 'fullscreen=yes');
+	let d = p.document
+	d.write('&lt;html&gt;');
+	d.write('&lt;head&gt;')
+	d.write('&lt;meta charset=&quot;utf-8&quot;&gt;')
+	d.write('&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;')
+	d.write('&lt;title&gt;')
+	d.write(toTitleCase('Unit Test - I') + ' - ' + toTitleCase('Telugu'))
+	d.write('&lt;/title&gt;')
+	d.write('&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css&quot;&gt;')
+	d.write('&lt;style&gt;')
+	d.write('.modal-card-body { padding: 10px; }')
+	d.write('header &gt; .columns { margin-bottom: 5px !important; }')
+	d.write('header .column { padding: 5px 10px; }')
+	d.write(
+		'.mcq-answers,.descriptive-answers { padding: 5px 10 px 10 px 5 px; margin-bottom: 10px; padding-bottom: 10px; }')
+	d.write('.mcq { margin-bottom: 5px; }')
+	d.write('.options-table { width: 100% ;}')
+	d.write('.options-table td { width: 50%; padding-left: 10px;}')
+	d.write('.is-border-bottom { border-bottom: 0.5px solid #E8E8E8; }')
+	d.write('&lt;/style&gt;')
+	d.write('')
+	d.write('&lt;/head&gt;')
+	d.write('&lt;body&gt;');
+	d.write(page);
+	d.write('&lt;/body&gt;');
+	d.write('&lt;/html&gt;')
+	d.close();
+	&lt;/script&gt;
+							</code>
+						</pre>
+					</figure>
+			</div>
+		</div>
+
+	</section>
+
+	<!-- <section id="page" class="is-hidden"> -->
+	<div class="is-hidden">
+		<section id="page">
+			<header>
+				<h1 class="is-size-5 has-text-centered has-text-weight-bold" id="school-name"></h1>
+				<h1 class="is-size-6 has-text-centered" id="page-title">{{exam.name|titlecase}} - {{exam.subject|titlecase}}</h1>
+				<div class="columns is-marginless is-border-bottom">
+					<div class="column num">
+						<span class="has-text-weight-semibold">Total Marks:</span>
+						<span id="total-marks">{{exam.marks}}</span>
+					</div>
+					<div class="column has-text-centered">
+						<span class="has-text-weight-semibold">Duration:</span>
+						<span v-show="exam.hours > 0" id="exam-hours">{{exam.hours}}hrs</span>
+						<span v-show="exam.minutes > 0" id="exam-minutes">{{exam.minutes}} mins</span>
+					</div>
+					<div class="column num has-text-right">
+						<span class="has-text-weight-semibold">Date:</span>
+						<span id="exam-timestamp">{{exam.timestamp|convertDate}}</span>
+					</div>
+				</div>
+			</header>
+			<div class="descriptive-answers is-border-bottom">
+				<h1 class="has-text-weight-normal has-text-centered">Descriptive Questions</h1>
+				<div id="descriptive-questions"></div>
+			</div>
+		</section>
+	</div>
+
+	<script>
+		function toTitleCase(value) {
+			if (!value) return '';
+			value = value.toLowerCase();
+			const arr = [];
+			value.split(' ').forEach(w => {
+				arr.push(w.substr(0, 1).toUpperCase() + w.substr(1));
+				arr.push(' ')
+			})
+			arr.splice(arr.length - 1, 1);
+			let s = '';
+			arr.forEach(w => s = s.concat(w));
+			return s;
+		}
+
+		function print() {
+			const page = document.getElementById("page").innerHTML;
+			const p = window.open('', '', 'fullscreen=yes');
+			let d = p.document
+			d.write('<html>');
+			d.write('<head>')
+			d.write('<meta charset="utf-8">')
+			d.write('<meta name="viewport" content="width=device-width, initial-scale=1">')
+			d.write('<title>')
+			d.write(toTitleCase('Unit Test - I') + ' - ' + toTitleCase('Telugu'))
+			d.write('</title>')
+			d.write('<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css">')
+			d.write('<style>')
+			d.write('.modal-card-body { padding: 10px; }')
+			d.write('header > .columns { margin-bottom: 5px !important; }')
+			d.write('header .column { padding: 5px 10px; }')
+			d.write(
+				'.mcq-answers,.descriptive-answers { padding: 5px 10 px 10 px 5 px; margin-bottom: 10px; padding-bottom: 10px; }')
+			d.write('.mcq { margin-bottom: 5px; }')
+			d.write('.options-table { width: 100% ;}')
+			d.write('.options-table td { width: 50%; padding-left: 10px;}')
+			d.write('.is-border-bottom { border-bottom: 0.5px solid #E8E8E8; }')
+			d.write('</style>')
+			d.write('')
+			d.write('</head>')
+			d.write('<body>');
+			d.write(page);
+			d.write('</body>');
+			d.write('</html>')
+			d.close();
+		}
+
+		const exam = {
+			name: 'Unit Test - I',
+			school: 'GSR Magnet English Medium School',
+			subject: 'Telugu',
+			marks: 50,
+			hours: 1,
+			minutes: 30,
+			timestamp: '03/04/2018',
+			descriptive: [
+				'మన జెండా వీరుల రక్తపు పంట అనడంలో కవి ఉద్దేశమేమిటి?',
+				'ईदगाह कहानी के कहानीकार कौन है? उनकी रचनाओं की विशेषता क्या है?',
+				'Who wrote our constitution?'
+			]
+		}
+
+		const schoolName = document.getElementById('school-name')
+		const pageTitle = document.getElementById('page-title')
+		const totalMarks = document.getElementById('total-marks')
+		const hours = document.getElementById('exam-hours')
+		const minutes = document.getElementById('exam-minutes')
+		const timestamp = document.getElementById('exam-timestamp')
+		const descriptiveQuestions = document.getElementById('descriptive-questions')
+
+		schoolName.innerHTML = exam.school
+		pageTitle.innerHTML = exam.name
+		totalMarks.innerHTML = exam.marks
+		hours.innerHTML = exam.hours + ' hrs'
+		minutes.innerHTML = exam.minutes + ' mins'
+		timestamp.innerHTML = exam.timestamp
+
+
+		for (var i = 0; i < 3; i++) {
+			let desQues = document.createTextNode((i + 1) + ') ' + exam.descriptive[i])
+			const spanMarks = document.createTextNode('5 Marks')
+
+			let spanQ = document.createElement('span')
+			spanQ.classList.add('has-text-weight-semibold')
+			spanQ.appendChild(desQues)
+
+			// <span class="is-pulled-right num">{{q.marks}} marks</span>
+			let spanM = document.createElement('span')
+			spanM.classList.add('is-pulled-right')
+			spanM.innerHTML = '5 Marks'
+
+			let p = document.createElement('p')
+			p.appendChild(spanQ)
+			p.appendChild(spanM)
+
+			descriptiveQuestions.appendChild(p)
+		}
+	</script>
+
+</body>
+
+</html>
